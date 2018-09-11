@@ -1,1 +1,2 @@
 # EC601_Mini_Project1
+# ONLY FOR LEARNING CODING
