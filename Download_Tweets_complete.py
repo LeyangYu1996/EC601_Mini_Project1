@@ -6,10 +6,10 @@ import os
 
 def download_tweets(Name):
     # Set the keys and secrets, so that we can use it to access to the api
-    consumer_key = 'gdlO8A6jODt9mq6BHIMEgOXvo'
-    consumer_secret = 'ZKyFYonnquR6fquASXR9sPFkO50mfLyHKZFVIPmZ0Y36poli3s'
-    access_key = '1038580354360193024-6EuQI08TYTrBPZkE5sdRkv9KGOzgEf'
-    access_secret = 'dZnPwoTxd9zIH5KI0PHwOf2gozIAoEJnuEn2weagl3y2c'
+    consumer_key = YOUR_KEY
+    consumer_secret = YOUR_SECRET
+    access_key = YOUR_CONSUMER_KEY
+    access_secret = YOUR_CONSUMER_SECRET
     # Put the screen name into this part
     screenname = Name
     # Use the keys and secrets to access to the api
