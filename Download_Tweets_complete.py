@@ -1,11 +1,11 @@
 import tweepy
-#Ref:https://github.com/tweepy/tweepy
+# Ref:https://github.com/tweepy/tweepy
 import json
 from urllib import request
 import os
 
 def download_tweets(Name):
-    #Set the keys and secrets, so that we can use it to access to the api
+    # Set the keys and secrets, so that we can use it to access to the api
     consumer_key = 'gdlO8A6jODt9mq6BHIMEgOXvo'
     consumer_secret = 'ZKyFYonnquR6fquASXR9sPFkO50mfLyHKZFVIPmZ0Y36poli3s'
     access_key = '1038580354360193024-6EuQI08TYTrBPZkE5sdRkv9KGOzgEf'
