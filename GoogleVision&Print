@@ -1,0 +1,51 @@
+import os
+import io
+from google.cloud import vision
+from google.cloud.vision import types
+#Ref:https://cloud.google.com/vision/docs/libraries#client-libraries-install-python
+from PIL import Image, ImageDraw, ImageFont
+#Ref:https://pillow.readthedocs.io/en/5.2.x/#
+
+
+def get_labels():
+    # Setup to access to the Google Vision API
+    #os.system("export GOOGLE_APPLICATION_CREDENTIALS='./My First Project-key.json'")
+    # os.system cannot upload the credential correctly, so FOR NOW it is necessary to run this in shell
+    client = vision.ImageAnnotatorClient()
+    i = 1
+    print('Getting labels from google and printing labels on it')
+    while(1):
+        # Check if there are pictures inside the folder
+        if os.path.exists('./PICS/'+str(i)+'.jpg') == True:
+            file_name = os.path.join(os.path.dirname(__file__),'./PICS/'+str(i)+'.jpg')
+            # Read the pictures and get ready to push it to Google
+            with io.open(file_name, 'rb') as image_file:
+                content = image_file.read()
+        
+            image = types.Image(content=content)
+            
+            # Get the labels from Google Vision
+            response = client.label_detection(image=image)
+            labels = response.label_annotations
+            # Setup PILLOW to put labels into the picture
+            im = Image.open('./PICS/'+str(i)+'.jpg')
+            draw = ImageDraw.Draw(im)
+            myfont = ImageFont.truetype("FONTs.ttf", size=35)
+            # As a result, the FONTs.ttf should be copied to the same folder
+            fillcolor = 'red'
+            # Put label into the picture
+            for label in labels:
+                draw.text((40, 40), label.description, font=myfont, fill=fillcolor)
+                break
+            im.save('./PICS/'+str(i)+'.jpg', 'JPEG')
+            i = i + 1
+        # Print the total number of the pictures
+        else:
+            print(str(i - 1)+' pictures completed')
+            break
+
+
+
+if __name__ == '__main__':
+        get_labels()
+            
