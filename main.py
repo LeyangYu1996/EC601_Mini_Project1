@@ -115,5 +115,5 @@ if __name__ == '__main__':
             Delect_Files()
             print('Mission Complete')
     else:
-        print('Error: no pictures found in this twitter account')
+        print('Error: no pictures downloaded from this twitter account')
 
