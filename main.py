@@ -1,4 +1,6 @@
 # This uses python 3.* and DO NOT support python 2.*
+# This project requires tweepy, urllib, google.cloud, PILLOW and ffmpeg libraries.
+# Setting up authentication for Google Cloud is REQUIRED before running this program
 import tweepy
 #Ref:https://github.com/tweepy/tweepy
 from urllib import request
@@ -25,14 +27,14 @@ def download_tweets(Name):
     auth = tweepy.OAuthHandler( consumer_key, consumer_secret)
     auth.set_access_token( access_key, access_secret)
     api = tweepy.API(auth)
-	# Download first set of status
+    # Download first set of status
     print('Getting tweets')
     public_tweets = api.user_timeline(screen_name = screenname, count = 200)
     # Check if there is no tweets downloaded
     if(len(public_tweets) == 0):
         print('No Tweets found')
     else:
-	    # Get the urls of all pictures and save them into a list
+	# Get the urls of all pictures and save them into a list
         picurl = set()
         for status in public_tweets:
             media = status.entities.get('media', [])
@@ -55,8 +57,6 @@ def download_tweets(Name):
 
 def get_labels():
     # Setup to access to the Google Vision API
-    #os.system("export GOOGLE_APPLICATION_CREDENTIALS='./My First Project-key.json'")
-    # os.system cannot upload the credential correctly, so FOR NOW it is necessary to run this in shell
     client = vision.ImageAnnotatorClient()
     i = 1
     print('Getting labels from google and printing labels on it')
@@ -69,7 +69,7 @@ def get_labels():
                 content = image_file.read()
         
             image = types.Image(content=content)
-            
+		
             # Get the labels from Google Vision
             response = client.label_detection(image=image)
             labels = response.label_annotations
@@ -79,7 +79,7 @@ def get_labels():
             myfont = ImageFont.truetype("FONTs.ttf", size=35)
             # As a result, the FONTs.ttf should be copied to the same folder
             fillcolor = 'red'
-            # Put label into the picture
+            # Put labels into the picture
             m = 0
             for label in labels:
                 m = m + 1
@@ -116,7 +116,7 @@ if __name__ == '__main__':
             get_labels()
             Put_to_video()
             Delect_Files()
-            print('Mission Complete')
+            print('Completed')
     else:
         print('Error: no picture is downloaded from this twitter account')
 
