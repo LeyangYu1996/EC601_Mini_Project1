@@ -6,4 +6,4 @@ This project uses python 3.* and DO NOT support python 2.*
 
 Setting up authentication for Google Cloud is REQUIRED before running this program
 
-Input the direction of your fonts here
+Please put the direction of your fonts into the place of main.py
