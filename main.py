@@ -14,13 +14,16 @@ from PIL import Image, ImageDraw, ImageFont
 import ffmpeg
 #Ref:https://github.com/kkroening/ffmpeg-python
 
+# Input your keys and secrets of twiiter API, so that the program can use it to access to the api
+consumer_key = YOUR_consumer_key
+consumer_secret = YOUR_consumer_secret
+access_key = YOUR_access_key
+access_secret = YOUR_access_secret
+
+# Input the direction of your fonts here
+fonts = YOUR_FONTS
 
 def download_tweets(Name):
-    #Set the keys and secrets, so that we can use it to access to the api
-    consumer_key = YOUR_consumer_key
-    consumer_secret = YOUR_consumer_secret
-    access_key = YOUR_access_key
-    access_secret = YOUR_access_secret
     # Put the screen name into this part
     screenname = Name
     # Use the keys and secrets to access to the api
@@ -76,8 +79,6 @@ def get_labels():
             # Setup PILLOW to put labels into the picture
             im = Image.open('./PICS/'+str(i)+'.jpg')
             draw = ImageDraw.Draw(im)
-	    # Input the direction of your fonts here
-            fonts = YOUR_FONTS
             myfont = ImageFont.truetype(fonts, size=35)
             fillcolor = 'red'
             # Put labels into the picture
