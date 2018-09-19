@@ -14,14 +14,15 @@ from PIL import Image, ImageDraw, ImageFont
 import ffmpeg
 #Ref:https://github.com/kkroening/ffmpeg-python
 
-# Input your keys and secrets of twiiter API, so that the program can use it to access to the api
-consumer_key = YOUR_consumer_key
-consumer_secret = YOUR_consumer_secret
-access_key = YOUR_access_key
-access_secret = YOUR_access_secret
+# Input your Twitter API keys and secrets here
+consumer_key = ''
+consumer_secret = ''
+access_key = ''
+access_secret = ''
 
-# Input the direction of your fonts here
-fonts = YOUR_FONTS
+# Input the dirction of the fonts you like
+fonts = './FONTs.ttf'
+
 
 def download_tweets(Name):
     # Put the screen name into this part
@@ -30,22 +31,24 @@ def download_tweets(Name):
     auth = tweepy.OAuthHandler( consumer_key, consumer_secret)
     auth.set_access_token( access_key, access_secret)
     api = tweepy.API(auth)
-    # Download first set of status
+	# Download first set of status
     print('Getting tweets')
     public_tweets = api.user_timeline(screen_name = screenname, count = 200)
     # Check if there is no tweets downloaded
     if(len(public_tweets) == 0):
         print('No Tweets found')
+        return 0
     else:
-	# Get the urls of all pictures and save them into a list
+	    # Get the urls of all pictures and save them into a list
         picurl = set()
         for status in public_tweets:
             media = status.entities.get('media', [])
             if(len(media) > 0):
                 picurl.add(media[0]['media_url'])
-        # Check if NO media files was found
+        # Check if NO media files were found
         if(len(picurl) == 0):
-            print('No Pictures Found or you inputed a wrong SCREEN NAME')
+            print('No Pictures Found')
+            return 0
 	    # If there is media files, use urltrieve to download the urls
         else:
             if os.path.exists('./PICS') == False:
@@ -56,10 +59,14 @@ def download_tweets(Name):
                 i=i+1
                 path_name = os.path.join('./PICS/', str(i)+'.jpg')
                 request.urlretrieve(media_file, path_name)
+            print(str(i)+' pictures downloaded')
+            return 1
+
 
 
 def get_labels():
     # Setup to access to the Google Vision API
+    # os.system cannot upload the credential correctly, so FOR NOW it is necessary to run this in shell
     client = vision.ImageAnnotatorClient()
     i = 1
     print('Getting labels from google and printing labels on it')
@@ -70,18 +77,20 @@ def get_labels():
             # Read the pictures and get ready to push it to Google
             with io.open(file_name, 'rb') as image_file:
                 content = image_file.read()
-        
+            
             image = types.Image(content=content)
-		
+            
             # Get the labels from Google Vision
             response = client.label_detection(image=image)
             labels = response.label_annotations
             # Setup PILLOW to put labels into the picture
+            # Input the direction of your fonts here
             im = Image.open('./PICS/'+str(i)+'.jpg')
             draw = ImageDraw.Draw(im)
             myfont = ImageFont.truetype(fonts, size=35)
+            # As a result, the FONTs.ttf should be copied to the same folders
             fillcolor = 'red'
-            # Put labels into the picture
+            # Put label into the picture
             m = 0
             for label in labels:
                 m = m + 1
@@ -89,15 +98,17 @@ def get_labels():
                 if m > 2:
                     break
             im.save('./PICS/'+str(i)+'.jpg', 'JPEG')
+            print('Printing labels on the '+str(i)+'th Picture')
             i = i + 1
         # Print the total number of the pictures
         else:
             print(str(i - 1)+' pictures completed')
             break
 
+
 def Put_to_video():
     # Use ffmpeg to convert the pictures into a video
-    os.system("ffmpeg -framerate 1 -pattern_type glob -i './PICS/*.jpg' -vf 'scale=trunc(iw/2)*2:trunc(ih/2)*2' -c:v libx264 -r 30 -pix_fmt yuv420p output.mp4")
+    os.system("ffmpeg -framerate 1/5 -pattern_type glob -i './PICS/*.jpg' -vf 'scale=trunc(iw/2)*2:trunc(ih/2)*2' -c:v libx264 -r 30 -pix_fmt yuv420p output.mp4")
 
 def Delect_Files():
     # Delect the pictures downloaded in order to save storage space of the computer
@@ -113,12 +124,12 @@ def Delect_Files():
 
 if __name__ == '__main__':
     Name = input("input Screen Name :")
-    download_tweets(Name)
-    if os.path.exists('./PICS/1.jpg') == True:
+    Checker = download_tweets(Name)
+    if Checker == 1:
             get_labels()
             Put_to_video()
             Delect_Files()
-            print('Output is completed')
+            print('Output is Complete')
     else:
-        print('Error: no picture is downloaded from this twitter account')
+        print('Error: no pictures found in this twitter account')
 
