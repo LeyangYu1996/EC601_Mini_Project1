@@ -80,9 +80,12 @@ def get_labels():
             # As a result, the FONTs.ttf should be copied to the same folder
             fillcolor = 'red'
             # Put label into the picture
+            m = 0
             for label in labels:
-                draw.text((40, 40), label.description, font=myfont, fill=fillcolor)
-                break
+                m = m + 1
+                draw.text((40, 40*m), label.description, font=myfont, fill=fillcolor)
+                if m > 2:
+                    break
             im.save('./PICS/'+str(i)+'.jpg', 'JPEG')
             i = i + 1
         # Print the total number of the pictures
