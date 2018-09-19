@@ -76,8 +76,9 @@ def get_labels():
             # Setup PILLOW to put labels into the picture
             im = Image.open('./PICS/'+str(i)+'.jpg')
             draw = ImageDraw.Draw(im)
-            myfont = ImageFont.truetype("FONTs.ttf", size=35)
-            # As a result, the FONTs.ttf should be copied to the same folder
+	    # Input the direction of your fonts here
+            fonts = YOUR_FONTS
+            myfont = ImageFont.truetype(fonts, size=35)
             fillcolor = 'red'
             # Put labels into the picture
             m = 0
@@ -116,7 +117,7 @@ if __name__ == '__main__':
             get_labels()
             Put_to_video()
             Delect_Files()
-            print('Completed')
+            print('Output is completed')
     else:
         print('Error: no picture is downloaded from this twitter account')
 
