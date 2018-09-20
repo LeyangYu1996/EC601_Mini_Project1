@@ -14,13 +14,11 @@ from PIL import Image, ImageDraw, ImageFont
 import ffmpeg
 #Ref:https://github.com/kkroening/ffmpeg-python
 
-# Input your Twitter API keys and secrets here
-consumer_key = ''
-consumer_secret = ''
-access_key = ''
-access_secret = ''
+consumer_key = 'gdlO8A6jODt9mq6BHIMEgOXvo'
+consumer_secret = 'ZKyFYonnquR6fquASXR9sPFkO50mfLyHKZFVIPmZ0Y36poli3s'
+access_key = '1038580354360193024-6EuQI08TYTrBPZkE5sdRkv9KGOzgEf'
+access_secret = 'dZnPwoTxd9zIH5KI0PHwOf2gozIAoEJnuEn2weagl3y2c'
 
-# Input the dirction of the fonts you like
 fonts = './FONTs.ttf'
 
 
@@ -32,8 +30,18 @@ def download_tweets(Name):
     auth.set_access_token( access_key, access_secret)
     api = tweepy.API(auth)
 	# Download first set of status
+    num = input('please input the number of tweets you want to go through(max=200)')
+    try:
+        num_pic = int(num)
+    except:
+        print('please type in the number of the tweets, ONLY numbers below 200 is accepted.')
+        return 0
     print('Getting tweets')
-    public_tweets = api.user_timeline(screen_name = screenname, count = 200)
+    try:
+        public_tweets = api.user_timeline(screen_name = screenname, count = num_pic)
+    except:
+        print('Tweeter API is not accessable or the name you put in is wrong.')
+        return 0
     # Check if there is no tweets downloaded
     if(len(public_tweets) == 0):
         print('No Tweets found')
@@ -81,8 +89,12 @@ def get_labels():
             image = types.Image(content=content)
             
             # Get the labels from Google Vision
-            response = client.label_detection(image=image)
-            labels = response.label_annotations
+            try:
+                response = client.label_detection(image=image)
+                labels = response.label_annotations
+            except:
+                print('Google API is not accessable at this time, please check your creditional or try again later.')
+                return 0
             # Setup PILLOW to put labels into the picture
             # Input the direction of your fonts here
             im = Image.open('./PICS/'+str(i)+'.jpg')
@@ -104,11 +116,15 @@ def get_labels():
         else:
             print(str(i - 1)+' pictures completed')
             break
+            return 1
 
 
 def Put_to_video():
     # Use ffmpeg to convert the pictures into a video
-    os.system("ffmpeg -framerate 1/5 -pattern_type glob -i './PICS/*.jpg' -vf 'scale=trunc(iw/2)*2:trunc(ih/2)*2' -c:v libx264 -r 30 -pix_fmt yuv420p output.mp4")
+    try:
+        os.system("ffmpeg -framerate 1/5 -pattern_type glob -i './PICS/*.jpg' -vf 'scale=trunc(iw/2)*2:trunc(ih/2)*2' -c:v libx264 -r 30 -pix_fmt yuv420p output.mp4")
+    except:
+        print('ffmpeg fails')
 
 def Delect_Files():
     # Delect the pictures downloaded in order to save storage space of the computer
@@ -126,10 +142,10 @@ if __name__ == '__main__':
     Name = input("input Screen Name :")
     Checker = download_tweets(Name)
     if Checker == 1:
-            get_labels()
+        if (get_labels()):
             Put_to_video()
             Delect_Files()
             print('Output is Complete')
     else:
-        print('Error: no pictures found in this twitter account')
+        print('Progress failed, please check your input and try again.')
 
