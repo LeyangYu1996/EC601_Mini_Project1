@@ -35,7 +35,7 @@ def download_tweets(Name):
     try:
         num_pic = int(num)
     except:
-        print('please type in the number of the tweets, ONLY numbers below 200 is accepted.')
+        print('please type in the number of the tweets, ONLY integers below 200 is accepted.')
         return 0
     print('Getting tweets')
     try:
