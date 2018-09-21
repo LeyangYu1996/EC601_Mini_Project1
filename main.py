@@ -14,11 +14,12 @@ from PIL import Image, ImageDraw, ImageFont
 import ffmpeg
 #Ref:https://github.com/kkroening/ffmpeg-python
 
-consumer_key = 'gdlO8A6jODt9mq6BHIMEgOXvo'
-consumer_secret = 'ZKyFYonnquR6fquASXR9sPFkO50mfLyHKZFVIPmZ0Y36poli3s'
-access_key = '1038580354360193024-6EuQI08TYTrBPZkE5sdRkv9KGOzgEf'
-access_secret = 'dZnPwoTxd9zIH5KI0PHwOf2gozIAoEJnuEn2weagl3y2c'
+consumer_key = Your_Key
+consumer_secret = Your_Secret
+access_key = Your_Ket
+access_secret = Your_Secret
 
+# Input the direction of your fonts here
 fonts = './FONTs.ttf'
 
 
