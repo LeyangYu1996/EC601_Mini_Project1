@@ -127,8 +127,8 @@ def Put_to_video():
     except:
         print('ffmpeg fails')
 
-def Delect_Files():
-    # Delect the pictures downloaded in order to save storage space of the computer
+def Delete_Files():
+    # Delete the pictures downloaded in order to save storage space of the computer
     i = 1
     while(1):
         # Check if the path has pictures inside
@@ -145,7 +145,7 @@ if __name__ == '__main__':
     if Checker == 1:
         if (get_labels()):
             Put_to_video()
-            Delect_Files()
+            Delete_Files()
             print('Output is Complete')
     else:
         print('Progress failed, please check your input and try again.')
