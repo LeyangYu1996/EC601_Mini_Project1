@@ -2,8 +2,6 @@
 
 It's only for learning
 
-This project uses python 3.* and DO NOT support python 2.*
-
+This project requires tweepy, urllib, google.cloud, PILLOW and ffmpeg libraries.
+ 
 Setting up authentication for Google Cloud is REQUIRED before running this program
-
-Please put the direction of your fonts into the place of main.py
