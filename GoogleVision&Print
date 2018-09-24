@@ -9,8 +9,6 @@ from PIL import Image, ImageDraw, ImageFont
 
 def get_labels():
     # Setup to access to the Google Vision API
-    #os.system("export GOOGLE_APPLICATION_CREDENTIALS='./My First Project-key.json'")
-    # os.system cannot upload the credential correctly, so FOR NOW it is necessary to run this in shell
     client = vision.ImageAnnotatorClient()
     i = 1
     print('Getting labels from google and printing labels on it')
@@ -27,7 +25,7 @@ def get_labels():
             # Get the labels from Google Vision
             response = client.label_detection(image=image)
             labels = response.label_annotations
-            # Setup PILLOW to put labels into the picture
+            # Set up PILLOW to put labels into the picture
             im = Image.open('./PICS/'+str(i)+'.jpg')
             draw = ImageDraw.Draw(im)
             myfont = ImageFont.truetype("FONTs.ttf", size=35)
