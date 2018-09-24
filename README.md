@@ -19,6 +19,6 @@ Input your key to the twitter API and the direction of your fonts into the prope
 
 4.In the same terminal as the step 2, run 'python3 main.py'
 
-5.Input the Twitter account that you like to download pictures from.
+5.Input the Twitter account that you like to download pictures from and the number of tweets you want to go through
 
 6.Completed!
