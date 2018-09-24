@@ -8,7 +8,7 @@ Setting up authentication for Google Cloud is REQUIRED before running this progr
 
 Input your key to the twitter API and the direction of your fonts into the proper place of the program.
 
-In order to run this program:
+# Steps to run this program:
 
 1.Modify the program by inputting your key to the twitter API and the direction of your fonts into the proper place of the program
 .
