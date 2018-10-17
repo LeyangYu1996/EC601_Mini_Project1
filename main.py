@@ -116,8 +116,9 @@ def get_labels():
         # Print the total number of the pictures
         else:
             print(str(i - 1)+' pictures completed')
-            break
             return 1
+            break
+
 
 
 def Put_to_video():
