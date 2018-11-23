@@ -17,15 +17,15 @@ import pymongo
 #Ref:http://api.mongodb.com/python/current/installation.html
 
 # Setting up twitter key.
-consumer_key = 
-consumer_secret = 
-access_key = 
-access_secret = 
+consumer_key = Your_key
+consumer_secret = Your_key
+access_key = Your_key
+access_secret = Your_key
 
 # Connect to mongo server.
 client = pymongo.MongoClient('mongodb://localhost:27017/')
 db = client.Pics
-User_name = "Leyang Yu"
+User_name = "Your_name"
 
 # Input the direction of your fonts here
 fonts = './FONTs.ttf'
