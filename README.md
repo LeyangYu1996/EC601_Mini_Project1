@@ -1,12 +1,12 @@
-## EC601_Mini_Project3
+# EC601_Mini_Project3
 
-# 1.Installing and starting MongoDB server
+## 1.Installing and starting MongoDB server
 
 1.1 Install MongoDB server.
 
 Firstly, please check [this website](https://docs.mongodb.com/manual/administration/install-community/) and download the proper version according to your OS. After that, please start mongoDB service on your local computer.
 
-# 2.Running main.py
+## 2.Running main.py
 
 2.1 Setting up main.py
 
@@ -27,7 +27,7 @@ export GOOGLE_APPLICATION_CREDITS="./YOUR CREDIT FILE"
 
 In the same terminal as the step 2.3, run 'python3 main.py'. During the running of the program, you should input the Twitter account that you like to download pictures from and the number of tweets you want to go through.
 
-# 3.Results of running
+## 3.Results of running
 
 3.1 Outputs
 
