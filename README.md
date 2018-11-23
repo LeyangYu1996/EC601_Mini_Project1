@@ -37,6 +37,10 @@ The outputs of this program is a video that contains a brief description of the 
 
 This program can store the urls to the pictures and the description into a mongoDB database. The results is in jason-style and it looks like this:<\br>
 ```
+{'_id': ObjectId('5bf5d358d15cca7580a9ea45'),
+ 'author': 'Your_name',
+ 'link': 'PIC_URL',
+ 'tags': ['TAGS']}
 
 ```
 
