@@ -13,14 +13,25 @@ from PIL import Image, ImageDraw, ImageFont
 #Ref:https://pillow.readthedocs.io/en/5.2.x/#
 import ffmpeg
 #Ref:https://github.com/kkroening/ffmpeg-python
+import pymongo
+#Ref:http://api.mongodb.com/python/current/installation.html
 
-consumer_key = Your_Key
-consumer_secret = Your_Secret
-access_key = Your_Ket
-access_secret = Your_Secret
+# Setting up twitter key.
+consumer_key = 'gdlO8A6jODt9mq6BHIMEgOXvo'
+consumer_secret = 'ZKyFYonnquR6fquASXR9sPFkO50mfLyHKZFVIPmZ0Y36poli3s'
+access_key = '1038580354360193024-6EuQI08TYTrBPZkE5sdRkv9KGOzgEf'
+access_secret = 'dZnPwoTxd9zIH5KI0PHwOf2gozIAoEJnuEn2weagl3y2c'
+
+# Connect to mongo server.
+client = pymongo.MongoClient('mongodb://localhost:27017/')
+db = client.Pics
+User_name = "Leyang Yu"
 
 # Input the direction of your fonts here
 fonts = './FONTs.ttf'
+
+# Setting up the set of urls
+urls = []
 
 
 def download_tweets(Name):
@@ -66,6 +77,7 @@ def download_tweets(Name):
             print('Downloading Pictures')
             for media_file in picurl:
                 i=i+1
+                urls.append(media_file)
                 path_name = os.path.join('./PICS/', str(i)+'.jpg')
                 request.urlretrieve(media_file, path_name)
             print(str(i)+' pictures downloaded')
@@ -73,16 +85,23 @@ def download_tweets(Name):
 
 
 
-def get_labels():
+def get_labels(Name):
     # Setup to access to the Google Vision API
     # os.system cannot upload the credential correctly, so FOR NOW it is necessary to run this in shell
     client = vision.ImageAnnotatorClient()
     i = 1
+
+    # Initialize the posts of MongoDB
+    posts = db.posts
+
     print('Getting labels from google and printing labels on it')
     while(1):
         # Check if there are pictures inside the folder
         if os.path.exists('./PICS/'+str(i)+'.jpg') == True:
             file_name = os.path.join(os.path.dirname(__file__),'./PICS/'+str(i)+'.jpg')
+
+            post = {"User_name": User_name, "Twitter_ID" : Name, "link": urls[i-1], "tags": []}
+
             # Read the pictures and get ready to push it to Google
             with io.open(file_name, 'rb') as image_file:
                 content = image_file.read()
@@ -107,11 +126,18 @@ def get_labels():
             m = 0
             for label in labels:
                 m = m + 1
-                draw.text((40, 40*m), label.description, font=myfont, fill=fillcolor)
-                if m > 2:
-                    break
+                if m <= 2:
+                    draw.text((40, 40*m), label.description, font=myfont, fill=fillcolor)
+                    post["tags"].append(label.description)
+                else:
+                    post["tags"].append(label.description)
+
             im.save('./PICS/'+str(i)+'.jpg', 'JPEG')
             print('Printing labels on the '+str(i)+'th Picture')
+
+            post_id = posts.insert_one(post).inserted_id
+            print(post)
+            print(post_id)
             i = i + 1
         # Print the total number of the pictures
         else:
@@ -144,7 +170,7 @@ if __name__ == '__main__':
     Name = input("input Screen Name :")
     Checker = download_tweets(Name)
     if Checker == 1:
-        if (get_labels()):
+        if (get_labels(Name)):
             Put_to_video()
             Delete_Files()
             print('Output is Complete')
