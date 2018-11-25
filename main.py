@@ -1,12 +1,12 @@
- '''
+'''
 
  Copyright 2018 Leyang Yu yly@bu.edu
- 
+
  This uses python 3.* and DO NOT support python 2.*
  This project requires tweepy, urllib, google.cloud, PILLOW and ffmpeg libraries.
  Setting up authentication for Google Cloud is REQUIRED before running this program
 
- '''
+'''
 import tweepy
 #Ref:https://github.com/tweepy/tweepy
 from urllib import request
@@ -86,7 +86,9 @@ def download_tweets(Name):
                 urls.append(media_file)
                 path_name = os.path.join('./PICS/', str(i)+'.jpg')
                 request.urlretrieve(media_file, path_name)
+            print('**********************')    
             print(str(i)+' pictures downloaded')
+            print('**********************')
             return 1
 
 
@@ -142,12 +144,13 @@ def get_labels(Name):
             print('Printing labels on the '+str(i)+'th Picture')
 
             post_id = posts.insert_one(post).inserted_id
-            print(post)
-            print(post_id)
             i = i + 1
         # Print the total number of the pictures
         else:
+            print(' ')
+            print('**********************')
             print(str(i - 1)+' pictures completed')
+            print('**********************')
             return 1
             break
 
@@ -171,6 +174,9 @@ def Delete_Files():
         else:
             break
     os.removedirs('./PICS')
+    print('**********************')
+    print('Deleted all temp files')
+    print('**********************')
 
 if __name__ == '__main__':
     Name = input("input Screen Name :")

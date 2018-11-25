@@ -1,11 +1,11 @@
- '''
+'''
 
  Copyright 2018 Leyang Yu yly@bu.edu
  
  This uses python 3.* and DO NOT support python 2.*
  This project requires pymongo library, and it needs to connect to an existing mongodb database
 
- '''
+'''
 from pymongo import MongoClient
 import pprint
 
