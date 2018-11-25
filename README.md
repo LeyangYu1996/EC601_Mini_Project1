@@ -27,13 +27,24 @@ export GOOGLE_APPLICATION_CREDITS="./YOUR CREDIT FILE"
 
 In the same terminal as the step 2.3, run 'python3 main.py'. During the running of the program, you should input the Twitter account that you like to download pictures from and the number of tweets you want to go through.
 
-## 3.Results of running
+## 3.Running search.py
 
-3.1 Outputs
+3.1 Main function
+
+This program is designed to help user search for a specific Tag, and print the url of the pictures that contains this tag.
+
+3.2 How to run it
+
+You can simply run this file using `python3 search.py`, and input the Tags you want as the program requires. It will print out the urls of the pictures that contains the tag you input.
+
+
+## 4.Results of running
+
+4.1 Outputs
 
 The outputs of this program is a video that contains a brief description of the pictures, together with those pictures, with each picture and its description showing for 5 second. It should be in `output.mp4`.
 
-3.2 Databases
+4.2 Databases
 
 This program can store the urls to the pictures and the description into a mongoDB database. The results is in jason-style and it looks like this:<\br>
 ```
