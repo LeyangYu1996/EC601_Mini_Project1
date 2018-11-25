@@ -1,6 +1,12 @@
-# This uses python 3.* and DO NOT support python 2.*
-# This project requires tweepy, urllib, google.cloud, PILLOW and ffmpeg libraries.
-# Setting up authentication for Google Cloud is REQUIRED before running this program
+ '''
+
+ Copyright 2018 Leyang Yu yly@bu.edu
+ 
+ This uses python 3.* and DO NOT support python 2.*
+ This project requires tweepy, urllib, google.cloud, PILLOW and ffmpeg libraries.
+ Setting up authentication for Google Cloud is REQUIRED before running this program
+
+ '''
 import tweepy
 #Ref:https://github.com/tweepy/tweepy
 from urllib import request
@@ -17,15 +23,15 @@ import pymongo
 #Ref:http://api.mongodb.com/python/current/installation.html
 
 # Setting up twitter key.
-consumer_key = Your_key
-consumer_secret = Your_key
-access_key = Your_key
-access_secret = Your_key
+consumer_key = 'gdlO8A6jODt9mq6BHIMEgOXvo'
+consumer_secret = 'ZKyFYonnquR6fquASXR9sPFkO50mfLyHKZFVIPmZ0Y36poli3s'
+access_key = '1038580354360193024-6EuQI08TYTrBPZkE5sdRkv9KGOzgEf'
+access_secret = 'dZnPwoTxd9zIH5KI0PHwOf2gozIAoEJnuEn2weagl3y2c'
 
 # Connect to mongo server.
 client = pymongo.MongoClient('mongodb://localhost:27017/')
 db = client.Pics
-User_name = "Your_name"
+User_name = "Leyang Yu"
 
 # Input the direction of your fonts here
 fonts = './FONTs.ttf'
@@ -100,7 +106,7 @@ def get_labels(Name):
         if os.path.exists('./PICS/'+str(i)+'.jpg') == True:
             file_name = os.path.join(os.path.dirname(__file__),'./PICS/'+str(i)+'.jpg')
 
-            post = {"User_name": User_name, "Twitter_ID" : Name, "link": urls[i-1], "tags": []}
+            post = {"Vaild":1, "User_name": User_name, "Twitter_ID" : Name, "link": urls[i-1], "tags": []}
 
             # Read the pictures and get ready to push it to Google
             with io.open(file_name, 'rb') as image_file:
